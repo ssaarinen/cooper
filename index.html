@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">-->
+    <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>-->
+
+</head>
+<body ng-controller="CooperCtrl">
+
+<div class="btn btn-lg btn-info btn-block" ng-click="start()"><h1>{{ btnText }}</h1></div>
+
+
+<div class="alert alert-info">
+    <div>Lap length (m)<input ng-model="lapLength" ng-disabled="startTime != null" placeholder="Track length in meters"/></div>
+    <div>Event length (min)<input ng-model="eventLengthMin" ng-disabled="startTime != null" placeholder="Event length in minutes"/></div>
+
+</div>
+<div class="alert alert-info">
+    <h3>Time left: <span class="label label-danger"> {{ timeLeft | date:"mm:ss" }}</span></h3>
+    <h3>Laps: <span class="label label-info">{{ laps }}</span></h3>
+    <h3>End distance: <span class="label label-danger">{{ endDistance | number:0 }}m</span></h3>
+</div>
+<script src="//code.angularjs.org/1.2.0rc1/angular.min.js" type="application/javascript"></script>
+<script src="js/app.js" type="application/javascript"></script>
+</body>
+</html>
