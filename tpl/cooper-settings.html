@@ -1,0 +1,23 @@
+<div class="panel" ng-hide="cooper.started">
+    <h4 class="panel-title">Settings</h4>
+    <form name="cprSettings">
+        <div class="row" ng-class="{error: cprSettings.laplength.$error.integer}">
+            <div class="small-2 columns">
+                <label for="laplength" class="inline">Lap length (m)</label>
+            </div>
+            <div class="small-10 columns">
+                <input id="laplength" name="laplength" ng-model="cooper.lapLength" ng-disabled="cooper.started" placeholder="Track length in meters" required integer/>
+
+            </div>
+
+        </div>
+        <div class="row" ng-class="{error: cprSettings.eventlength.$error.integer}">
+            <div class="small-2 columns">
+                <label for="eventlength" class="inline">Event length (min)</label>
+            </div>
+            <div class="small-10 columns">
+                <input id="eventlength" name="eventlength" class="form-control" ng-model="cooper.eventLengthMin" ng-disabled="cooper.started" placeholder="Event length in minutes" integer/>
+            </div>
+        </div>
+    </form>
+</div>

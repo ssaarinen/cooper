@@ -1,0 +1,9 @@
+.loader.ng-cloak {
+
+    display: block;
+
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak, .loader {
+    display: none !important;
+}
