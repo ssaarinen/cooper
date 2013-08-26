@@ -2,7 +2,7 @@
  * Created by samuli on 20.8.2013.
  */
 
-var app = angular.module("cooperApp", []);
+var app = angular.module("CooperApp", []);
 
 app.controller("CooperCtrl", function($scope, $timeout) {
 
@@ -28,6 +28,36 @@ app.controller("CooperCtrl", function($scope, $timeout) {
     }
 } );
 
+app.controller("CooperMgrCtrl", function($scope, $timeout){
+    $scope.cooperMgr = new CooperMgr({lapLength:400, eventLengthMin:12})
+    var updateTimer;
+    $scope.add = function() {
+        $scope.cooperMgr.add($scope.name)
+    }
+
+    $scope.start = function () {
+        var coopers = $scope.cooperMgr.coopers;
+        if(coopers.length > 0 && !coopers[0].cooper.started) {
+            for(var i=0;i<coopers.length;i++) {
+                coopers[i].cooper.start();
+                updateTimer =  $timeout($scope.updateTime, 1000);
+            }
+        }
+    }
+
+    $scope.updateTime = function() {
+        var coopers = $scope.cooperMgr.coopers;
+        if(coopers.length > 0 && !coopers[0].started) {
+            for(var i=0;i<coopers.length;i++) {
+                coopers[i].cooper.updateTime();
+            }
+            if(coopers[0].cooper.started) {
+                updateTimer = $timeout($scope.updateTime, 1000);
+            }
+        }
+    }
+});
+
 app.directive("cooperSettings", function() {
     return {
         restrict:"E",
@@ -49,11 +79,11 @@ app.directive('integer', function() {
         link: function(scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function(viewValue) {
                 if (INTEGER_REGEXP.test(viewValue)) {
-// it is valid
+                    // it is valid
                     ctrl.$setValidity('integer', true);
                     return viewValue;
                 } else {
-// it is invalid, return undefined (no model update)
+                    // it is invalid, return undefined (no model update)
                     ctrl.$setValidity('integer', false);
                     return undefined;
                 }
@@ -110,3 +140,12 @@ Cooper.prototype.updateTime = function() {
         }
     }
 };
+
+function CooperMgr(options) {
+    this.options = options || {};
+    this.coopers = [];
+}
+
+CooperMgr.prototype.add = function(name) {
+    this.coopers.push({"name":name, "cooper":new Cooper(this.options)});
+}

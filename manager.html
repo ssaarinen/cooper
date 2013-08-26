@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="CooperApp">
+<head>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/foundation/4.3.1/css/foundation.css"/>
+    <title>Cooper Manager</title>
+</head>
+<body ng-controller="CooperMgrCtrl">
+<form>
+    <input type="text" name="name" placeholder="User name" ng-model="name"/><button ng-click="add()">Add</button>
+</form>
+<button ng-click="start()">Start</button>
+
+    <div ng-repeat="usrCooper in cooperMgr.coopers">
+        <div class="panel">
+            {{ usrCooper.cooper.started }} {{ usrCooper.name}} {{ usrCooper.cooper.laps}} {{ usrCooper.cooper.endDistance | number:0 }}m <button ng-click="usrCooper.cooper.lapDone()">Lap</button>
+        </div>
+
+    </div>
+
+
+<script src="//code.angularjs.org/1.2.0rc1/angular.min.js" type="application/javascript"></script>
+<script src="js/app.js" type="application/javascript"></script>
+</body>
+</html>
